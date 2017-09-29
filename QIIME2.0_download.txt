@@ -1,0 +1,63 @@
+
+Installation of QIIME 2.0 on a Mac OSX
+Sept 2017
+
+followed instructions at https://docs.qiime2.org/2017.8/install/native/#install-miniconda
+
+Step 1: Install Miniconda
+
+Download Python 2.7 64-bit (bash installer) to Downloads from:
+https://conda.io/miniconda.html
+
+Open terminal and type bash in your terminal window
+
+And then pull the shell script into the terminal window, this will copy the path to the installer shell script
+
+Or write:
+
+bash ~/Downloads/Miniconda2-latest-MacOSX-x86_64.sh
+
+Hit enter to review license terms, scroll through them, say yes
+
+Installer prompts you for install location, they recommend to accept default install location - Hit Enter
+Installer prompts you about path, they recommend 'yes'
+
+CLOSE and open terminal window for installation to take effect
+
+In new terminal window, make sure you're running latest version, write:
+
+conda update conda
+
+Proceed --> y 
+
+
+
+Step 2: Install QIIME
+
+conda create -n qiime2-2017.8 --file https://data.qiime2.org/distro/core/qiime2-2017.8-conda-osx-64.txt
+
+There are a lot of dependencies, it took awhile to download all of them
+
+SEE QIIME 2.0 instructions if you receive errors such as gfortan errors: https://docs.qiime2.org/2017.8/install/native/#install-miniconda
+
+
+Step 3: Activate and test QIIME 2 environment
+
+type in terminal:
+
+source activate qiime2-2017.8
+
+test your installation, write in terminal:
+
+qiime --help
+
+If no errors, then off and running!
+
+
+To use wget in QIIME tutorials, I had to download Homebrew 
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+And then run:
+
+brew install wget

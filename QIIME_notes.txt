@@ -1,0 +1,76 @@
+Using QIIME 2.0
+
+Activate QIIME using the environment’s name:
+
+source activate qiime2-2017.8
+
+To deactivate an environment, run: source deactivate.
+
+Trouble with space in Dropbox, put name in quotes
+cd "Dropbox (Smithsonian)" then into Metabarcode_wrksp then into QIIME_files
+
+or this:
+
+cd Dropbox\ \(Smithsonian\)/Metabarcode_wrksp/QIIME_files/
+
+##################    EXPORT VS EXTRACT   ###############
+qiime tools export \
+  feature-table.qza \
+  --output-dir exported-feature-table
+ 
+
+## Have to make a directory before extracting, makes a lot more files that don't seem that important to me
+  
+mkdir extracted-feature-table
+qiime tools extract \
+  feature-table.qza \
+  --output-dir extracted-feature-table
+  
+  ## Using Export then
+
+
+#####################   QZV files   ################
+qiime demux summarize \
+  --i-data demux.qza \
+  --o-visualization demux.qzv
+
+qiime demux summarize --i-data demux.qza --o-visualization demux.qzv
+ 
+ Outputs green text saying: Saved Visualization to: demux.qzv
+  
+  Note
+All QIIME 2 visualizers (i.e., commands that take a --o-visualization parameter) will generate a .qzv file. You can view these files with qiime tools view. We provide the command to view this first visualization, but for the remainder of this tutorial we’ll tell you to view the resulting visualization after running a visualizer, which means that you should run qiime tools view on the .qzv file that was generated.
+
+qiime tools view demux.qzv
+
+deblur does not support paired-end data, only dada2 does
+
+## All I need right now is a biom file, the mapping file and the tree file to bring into phyloseq
+
+From the moving picture tutorial I am downloading those files and then extracting those files: https://docs.qiime2.org/2017.8/tutorials/moving-pictures/
+
+qiime tools export table.qza --output-dir exported-files
+
+qiime tools export rooted-tree.qza --output-dir exported-files
+
+## Let's look at the feature-table.biom as a .txt file
+
+biom convert -i feature-table.biom -o feature-table.txt --to-tsv --header-key taxonomy
+
+## Ok, problem here you don't get the taxonomic assignment until later in the tutorial
+Followed this: https://forum.qiime2.org/t/is-there-any-way-to-summarize-taxa-plot-by-category/446/2
+
+Downloading taxonomy.qza and then exporting
+ 
+qiime tools export taxonomy.qza --output-dir exported-files
+
+mv exported-files/taxonomy.tsv biom-taxonomy.tsv
+
+## Edit first line of taxonomy file from Feature ID --> #OTUID, from Taxon --> taxonomy, from Confidence --> confidence 
+
+biom add-metadata -i exported-files/feature-table.biom -o table-with-taxonomy.biom --observation-metadata-fp biom-taxonomy.tsv --sc-separated taxonomy
+
+biom convert -i table-with-taxonomy.biom -o table-with-taxonomy.txt --to-tsv --header-key taxonomy
+
+## Will create a file called dna-sequences.fasta that you can find the sequences of each OTU
+qiime tools export rep-seqs-dada2.qza --output-dir exported-files 
