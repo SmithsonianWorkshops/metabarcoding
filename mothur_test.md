@@ -1,4 +1,4 @@
-##Mothur tutorial
+### Mothur tutorial
 
 In this tutorial, we will run [Mothur](https://mothur.org/wiki/Main_Page), developed by the Schloss Lab at The University of Michigan. (Schloss, P.D., _et al._, Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. Appl Environ Microbiol, 2009. 75(23):7537-41.)
 
