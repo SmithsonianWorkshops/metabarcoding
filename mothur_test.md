@@ -1,4 +1,4 @@
-##Mothur tutorial
+## Mothur tutorial
 
 In this tutorial, we will run [Mothur](https://mothur.org/wiki/Main_Page), developed by the Schloss Lab at The University of Michigan. (Schloss, P.D., _et al._, Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. Appl Environ Microbiol, 2009. 75(23):7537-41.)
 
@@ -16,7 +16,8 @@ Sequence data are here:
 LIST FILES
 
 **SAMPLE JOB FILE:**
-```# /bin/sh
+```
+# /bin/sh
 # ----------------Parameters---------------------- #
 #$ -S /bin/sh
 #$ -q sThC.q
@@ -36,7 +37,8 @@ echo + NSLOTS = $NSLOTS
 #
 mothur batchfile
 #
-echo = `date` job $JOB_NAME done```
+echo = `date` job $JOB_NAME done
+```
 
 The batchfile is where you put your commands, either one at a time or sequentially.
 
