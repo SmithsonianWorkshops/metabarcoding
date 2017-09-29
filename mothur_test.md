@@ -1,4 +1,4 @@
-### Mothur tutorial
+##Mothur tutorial
 
 In this tutorial, we will run [Mothur](https://mothur.org/wiki/Main_Page), developed by the Schloss Lab at The University of Michigan. (Schloss, P.D., _et al._, Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. Appl Environ Microbiol, 2009. 75(23):7537-41.)
 
@@ -15,9 +15,34 @@ Sequence data are here:
 ```/pool/genomics/dikowr/mothur_tutorial```
 LIST FILES
 
+**SAMPLE JOB FILE:**
+```# /bin/sh
+# ----------------Parameters---------------------- #
+#$ -S /bin/sh
+#$ -q sThC.q
+#$ -l mres=4G,h_data=4G,h_vmem=4G
+#$ -cwd
+#$ -j y
+#$ -N mothur_test
+#$ -o mothur_test.log
+#
+# ----------------Modules------------------------- #
+module load bioinformatics/mothur/1.39.0
+#
+# ----------------Your Commands------------------- #
+#
+echo + `date` job $JOB_NAME started in $QUEUE with jobID=$JOB_ID on $HOSTNAME
+echo + NSLOTS = $NSLOTS
+#
+mothur batchfile
+#
+echo = `date` job $JOB_NAME done```
+
+The batchfile is where you put your commands, either one at a time or sequentially.
+
 Here is a list of the commands we will perform and what they do. For further explanation, see (https://mothur.org/wiki/MiSeq_SOP):
 
-QUALITY CONTROL:
+**QUALITY CONTROL:**
 1. make a "stability" file ```make.file```
 2. combine pairs of reads for each sample and then combine data from all samples into one file ```make.contigs```
 3. summarize the sequences - we will use this command a bunch of times ```summary.seqs```
@@ -53,7 +78,7 @@ Sample full commands for the above steps:
 16. ```remove.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, accnos=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.accnos)```
 
 
-TAXONOMIC CLASSIFICATION
+**TAXONOMIC CLASSIFICATION**
 1. classify sequences (_e.g._ with RDP training set and Bayesian classifier) ```classify.seqs```
 2. remove off-target taxa ```remove.lineage```
 3. created updated taxonomy summary ```summary.tax```
@@ -62,3 +87,35 @@ Sample full commands for the above steps:
 ```classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=trainset9_032012.pds.fasta, taxonomy=trainset9_032012.pds.tax, cutoff=80)```
 ```remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)```
 ```summary.tax(taxonomy=current, count=current)```
+
+**CLUSTERING**
+1. calaulate pairwise distances between sequences with your cutoff ```dist.seqs```
+2. cluster sequences into OTUs ```cluster```
+3. determine how many sequences are in each OTU according to your cutoff ```make.shared```
+4. classify OTUs```classify.otu```
+5. build a tree ```clearcut```
+
+Sample full commands for the above steps:
+1. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.fasta, cutoff=0.03)``` 
+2. ```cluster(column=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.dist, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table)``` 
+3. ```make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, label=0.03)```
+4. ```classify.otu(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.pick.taxonomy, label=0.03)```
+5. ```clearcut(phylip=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.phylip.dist)```
+
+**ALPHA DIVERSITY:**
+1. generate rarefaction curves ```rarefaction.single```
+2. make a table containing the number of sequences, the sample coverage, observed OTUs, and Inverse Simpson diversity estimate ```summary.single```
+
+Sample full commands for the above steps:
+1. ```rarefaction.single(shared=stability.opti_mcc.shared, calc=sobs, freq=100)```
+2. ```summary.single(shared=stability.opti_mcc.shared, calc=nseqs-coverage-sobs-invsimpson, subsample=2392 (**or T**))```
+
+**BETA DIVERSITY:**
+1. generate a heatmap to look at relative abundance of OTUs across samples ``heatmap.bin```
+2. calculate similarity of membership and structure of samples ```dist.shared```
+3. generate a heatmap to visualize the above ```heatmap.sim```
+
+Sample full commands for the above steps:
+1. ```heatmap.bin(shared=stability.opti_mcc.0.03.subsample.shared, scale=log2, numotu=50)```  
+2. ```dist.shared(shared=stability.opti_mcc.shared, calc=thetayc-jclass, subsample=2392)```
+3. ```mothur > heatmap.sim(phylip=stability.opti_mcc.jclass.0.03.lt.ave.dist)```
