@@ -23,6 +23,7 @@ We recommend copying the entire ```/pool/genomics/dikowr/mothur_tutorial/``` dir
 # ----------------Parameters---------------------- #
 #$ -S /bin/sh
 #$ -q sThC.q
+#$ -pe mthread 2
 #$ -l mres=4G,h_data=4G,h_vmem=4G
 #$ -cwd
 #$ -j y
@@ -44,7 +45,7 @@ echo = `date` job $JOB_NAME done
 
 The batchfile is where you put your commands, either one at a time or sequentially. You should practice running one command at a time at first, and then try stringing commands together once you complete them successfully alone.
 
-Here is a list of the commands we will perform and what they do. For further explanation, see (https://mothur.org/wiki/MiSeq_SOP):
+Here is a list of the commands we will perform and what they do. For further explanation, see (https://mothur.org/wiki/MiSeq_SOP). Note that the following commands are specific to the 16S dataset - values will need to be adjusted for the 18S dataset.
 
 **QUALITY CONTROL:**
 1. make a "stability" file ```make.file```
@@ -65,16 +66,16 @@ Here is a list of the commands we will perform and what they do. For further exp
 
 Sample full commands for the above steps:
 1. ```make.file(**inputdir=16S_data**, type=fastq, prefix=stability)```
-2. ```make.contigs(file=stability.files, **processors=8**)```
+2. ```make.contigs(file=stability.files, processors=8)```
 3. ```summary.seqs(fasta=stability.trim.contigs.fasta)```
-4. ```screen.seqs(fasta=stability.trim.contigs.fasta, group=stability.contigs.groups, **maxambig=0**, **maxlength=275**)```
+4. ```screen.seqs(fasta=stability.trim.contigs.fasta, group=stability.contigs.groups, **maxambig=0**, maxlength=275)```
 5. ```unique.seqs(fasta=stability.trim.contigs.good.fasta)``` 
 6. ```count.seqs(name=stability.trim.contigs.good.names, group=stability.contigs.good.groups)``` 
 7. ```pcr.seqs(**fasta=silva.bacteria.fasta**, **start=11894**, **end=25319**, keepdots=F, **processors=8**)``` 
 8. ```rename.file(input=silva.bacteria.pcr.fasta, **new=silva.v4.fasta**)```
 9. ```align.seqs(fasta=stability.trim.contigs.good.unique.fasta, **reference=silva.v4.fasta**)```
 10. ```summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)``` 
-11. ```screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, **start=1968**, **end=11550**, **maxhomop=8**)```
+11. ```screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, **start=1968**, **end=11550**, maxhomop=8)```
 12. ```filter.seqs(fasta=stability.trim.contigs.good.unique.good.align, vertical=T, trump=.)``` 
 13. ```unique.seqs(fasta=stability.trim.contigs.good.unique.good.filter.fasta, count=stability.trim.contigs.good.good.count_table)``` 
 14. ```pre.cluster(fasta=stability.trim.contigs.good.unique.good.filter.unique.fasta, count=stability.trim.contigs.good.unique.good.filter.count_table, **diffs=2**)``` 
@@ -100,10 +101,10 @@ Sample full commands for the above steps:
 5. build a tree ```clearcut```
 
 Sample full commands for the above steps:
-1. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.fasta, **cutoff=0.03**)``` 
+1. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.fasta, cutoff=0.03)``` 
 2. ```cluster(column=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.dist, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table)``` 
-3. ```make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, **label=0.03**)```
-4. ```classify.otu(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.pick.taxonomy, **label=0.03**)```
+3. ```make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, label=0.03)```
+4. ```classify.otu(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.pick.taxonomy, label=0.03)```
 5. ```clearcut(phylip=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.phylip.dist)```
 
 **ALPHA DIVERSITY:**
@@ -121,7 +122,7 @@ Sample full commands for the above steps:
 4. generate a venn diagram ```venn```
 
 Sample full commands for the above steps:
-1. ```heatmap.bin(shared=stability.opti_mcc.0.03.subsample.shared, scale=log2, **numotu=50**)```  
-2. ```dist.shared(shared=stability.opti_mcc.shared, calc=thetayc-jclass, **subsample=2392**)```
+1. ```heatmap.bin(shared=stability.opti_mcc.0.03.subsample.shared, scale=log2, numotu=50)```  
+2. ```dist.shared(shared=stability.opti_mcc.shared, calc=thetayc-jclass, subsample=2392)```
 3. ```mothur > heatmap.sim(phylip=stability.opti_mcc.jclass.0.03.lt.ave.dist)```
-4. ```venn(shared=stability.opti_mcc.0.03.subsample.shared, **groups=F3D0-F3D1-F3D2-F3D3**)```
+4. ```venn(shared=stability.opti_mcc.0.03.subsample.shared, groups=F3D0-F3D1-F3D2-F3D3)```
