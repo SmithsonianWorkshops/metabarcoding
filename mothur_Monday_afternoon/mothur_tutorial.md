@@ -8,11 +8,15 @@ You can download mothur and run it on your laptop, but we recommend running it o
 
 Taxonomic databases are here: 
 ```/data/genomics/db/metabarcoding/Greengenes_13_8_99.taxonomy```
+
 ```/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp```
+
 ```/data/genomics/db/metabarcoding/silva.bacteria```
+
+```/data/genomics/db/metabarcoding/18S_pr2_version_4.7_merged_Eukaryota.tsv```
 You do not need to copy these to your space.
 
-Sequence data are here:
+In the span of this workshop, we will analyze two datasets in mothur, a 16S dataset from the mothur MiSeqSOP tutorial and an 18S dataset from Katrina Lohan. Sequence data are here:
 ```/pool/genomics/dikowr/mothur_tutorial/16S_data```
 ```/pool/genomics/dikowr/mothur_tutorial/18S_data```
 We recommend copying the entire ```/pool/genomics/dikowr/mothur_tutorial/``` directory to your space (either in ```/pool/genomics``` or ```/pool/biology```). Login to Hydra and use ```cp -r``` to do this.
@@ -43,7 +47,7 @@ mothur batchfile
 echo = `date` job $JOB_NAME done
 ```
 
-The batchfile is where you put your commands, either one at a time or sequentially. You should practice running one command at a time at first, and then try stringing commands together once you complete them successfully alone.
+The batchfile is where you put your commands, either one at a time or sequentially. You should practice running one command at a time at first, and then try stringing commands together once you complete them successfully alone. Take care to adjust the number of requested CPUs and amount of RAM to reflect the commands.
 
 Here is a list of the commands we will perform and what they do. For further explanation, see (https://mothur.org/wiki/MiSeq_SOP). Note that the following commands are specific to the 16S dataset - values will need to be adjusted for the 18S dataset.
 
@@ -65,20 +69,20 @@ Here is a list of the commands we will perform and what they do. For further exp
 15. remove identified chimeras ```remove.seqs```
 
 Sample full commands for the above steps:
-1. ```make.file(**inputdir=16S_data**, type=fastq, prefix=stability)```
+1. ```make.file(inputdir=16S_data, type=fastq, prefix=stability)```
 2. ```make.contigs(file=stability.files, processors=8)```
 3. ```summary.seqs(fasta=stability.trim.contigs.fasta)```
-4. ```screen.seqs(fasta=stability.trim.contigs.fasta, group=stability.contigs.groups, **maxambig=0**, maxlength=275)```
+4. ```screen.seqs(fasta=stability.trim.contigs.fasta, group=stability.contigs.groups, maxambig=0, maxlength=275)```
 5. ```unique.seqs(fasta=stability.trim.contigs.good.fasta)``` 
 6. ```count.seqs(name=stability.trim.contigs.good.names, group=stability.contigs.good.groups)``` 
-7. ```pcr.seqs(**fasta=silva.bacteria.fasta**, **start=11894**, **end=25319**, keepdots=F, **processors=8**)``` 
-8. ```rename.file(input=silva.bacteria.pcr.fasta, **new=silva.v4.fasta**)```
-9. ```align.seqs(fasta=stability.trim.contigs.good.unique.fasta, **reference=silva.v4.fasta**)```
+7. ```pcr.seqs(fasta=silva.bacteria.fasta, start=11894, end=25319, keepdots=F, processors=8)``` 
+8. ```rename.file(input=silva.bacteria.pcr.fasta, new=silva.v4.fasta)```
+9. ```align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.v4.fasta)```
 10. ```summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)``` 
-11. ```screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, **start=1968**, **end=11550**, maxhomop=8)```
+11. ```screen.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table, summary=stability.trim.contigs.good.unique.summary, start=1968, end=11550, maxhomop=8)```
 12. ```filter.seqs(fasta=stability.trim.contigs.good.unique.good.align, vertical=T, trump=.)``` 
 13. ```unique.seqs(fasta=stability.trim.contigs.good.unique.good.filter.fasta, count=stability.trim.contigs.good.good.count_table)``` 
-14. ```pre.cluster(fasta=stability.trim.contigs.good.unique.good.filter.unique.fasta, count=stability.trim.contigs.good.unique.good.filter.count_table, **diffs=2**)``` 
+14. ```pre.cluster(fasta=stability.trim.contigs.good.unique.good.filter.unique.fasta, count=stability.trim.contigs.good.unique.good.filter.count_table, diffs=2)``` 
 15. ```chimera.vsearch(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t)```
 16. ```remove.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, accnos=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.accnos)```
 
@@ -89,7 +93,7 @@ Sample full commands for the above steps:
 3. created updated taxonomy summary ```summary.tax```
 
 Sample full commands for the above steps:
-```classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, **reference=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.fasta**, **taxonomy=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.tax**, **cutoff=80**)```
+```classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.fasta, taxonomy=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.tax, cutoff=80)```
 ```remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)```
 ```summary.tax(taxonomy=current, count=current)```
 
@@ -113,7 +117,7 @@ Sample full commands for the above steps:
 
 Sample full commands for the above steps:
 1. ```rarefaction.single(shared=stability.opti_mcc.shared, calc=sobs, freq=100)```
-2. ```summary.single(shared=stability.opti_mcc.shared, calc=nseqs-coverage-sobs-invsimpson, **subsample=2392**)```
+2. ```summary.single(shared=stability.opti_mcc.shared, calc=nseqs-coverage-sobs-invsimpson, subsample=2392)```
 
 **BETA DIVERSITY:**
 1. generate a heatmap to look at relative abundance of OTUs across samples ``heatmap.bin```
