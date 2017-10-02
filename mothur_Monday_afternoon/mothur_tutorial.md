@@ -93,7 +93,7 @@ Sample full commands for the above steps:
 
 Sample full commands for the above steps:
 1. ```classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.fasta, taxonomy=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.tax, cutoff=80)```
-2. ```remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)```
+2. ```remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)```
 3. ```summary.tax(taxonomy=current, count=current)```
 
 **CLUSTERING**
