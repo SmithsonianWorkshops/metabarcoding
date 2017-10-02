@@ -102,6 +102,9 @@ Sample full commands for the above steps:
 3. determine how many sequences are in each OTU according to your cutoff ```make.shared```
 4. classify OTUs```classify.otu```
 5. build a tree ```clearcut```
+6. rename files to simplify ```rename.file```
+7. count how many sequences are in each sample ```count.groups```
+8. generate a subsampled file for our analyses ```sub.sample```
 
 Sample full commands for the above steps:
 1. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.fasta, cutoff=0.03)``` 
@@ -109,14 +112,19 @@ Sample full commands for the above steps:
 3. ```make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, label=0.03)```
 4. ```classify.otu(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.pick.pick.taxonomy, label=0.03)```
 5. ```clearcut(phylip=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.phylip.dist)```
+6. ```rename.file(count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, tree=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.phylip.tre, shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared, constaxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.0.03.cons.taxonomy)```
+7. ```count.groups(shared=stability.opti_mcc.shared)```
+8. ```sub.sample(shared=stability.opti_mcc.shared, size=2392)```
 
 **ALPHA DIVERSITY:**
 1. generate rarefaction curves ```rarefaction.single```
 2. make a table containing the number of sequences, the sample coverage, observed OTUs, and Inverse Simpson diversity estimate ```summary.single```
+3. calculate the total of the unique branch length in the tree ```phylo.diversity```
 
 Sample full commands for the above steps:
 1. ```rarefaction.single(shared=stability.opti_mcc.shared, calc=sobs, freq=100)```
 2. ```summary.single(shared=stability.opti_mcc.shared, calc=nseqs-coverage-sobs-invsimpson, subsample=2392)```
+3. ```phylo.diversity(tree=stability.tre, count=stability.count_table, rarefy=T)```
 
 **BETA DIVERSITY:**
 1. generate a heatmap to look at relative abundance of OTUs across samples ``heatmap.bin```
