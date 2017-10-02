@@ -14,7 +14,6 @@ Taxonomic databases are here:
 ```/data/genomics/db/metabarcoding/silva.bacteria```
 
 ```/data/genomics/db/metabarcoding/18S_pr2_version_4.7_merged_Eukaryota.tsv```
-You do not need to copy these to your space.
 
 In the span of this workshop, we will analyze two datasets in mothur, a 16S dataset from the mothur MiSeqSOP tutorial and an 18S dataset from Katrina Lohan. Sequence data are here:
 ```/pool/genomics/dikowr/mothur_tutorial/16S_data```
@@ -108,7 +107,7 @@ Sample full commands for the above steps:
 1. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.fasta, cutoff=0.03)``` 
 2. ```cluster(column=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.dist, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table)``` 
 3. ```make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, label=0.03)```
-4. ```classify.otu(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.pick.taxonomy, label=0.03)```
+4. ```classify.otu(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.pick.pick.taxonomy, label=0.03)```
 5. ```clearcut(phylip=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.phylip.dist)```
 
 **ALPHA DIVERSITY:**
