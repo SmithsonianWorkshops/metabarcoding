@@ -48,7 +48,7 @@ echo = `date` job $JOB_NAME done
 
 The batchfile is where you put your commands, either one at a time or sequentially. You should practice running one command at a time at first, and then try stringing commands together once you complete them successfully alone. Take care to adjust the number of requested CPUs and amount of RAM to reflect the commands.
 
-Here is a list of the commands we will perform and what they do. For further explanation, see (https://mothur.org/wiki/MiSeq_SOP). Note that the following commands are specific to the 16S dataset - values will need to be adjusted for the 18S dataset.
+Here is a list of the commands we will perform and what they do. For further explanation, see (https://mothur.org/wiki/MiSeq_SOP). Note that the following commands are specific to the 16S dataset - commands will need to be adjusted for the 18S dataset.
 
 **QUALITY CONTROL:**
 1. make a "stability" file ```make.file```
@@ -92,9 +92,9 @@ Sample full commands for the above steps:
 3. created updated taxonomy summary ```summary.tax```
 
 Sample full commands for the above steps:
-```classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.fasta, taxonomy=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.tax, cutoff=80)```
-```remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)```
-```summary.tax(taxonomy=current, count=current)```
+1. ```classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.fasta, taxonomy=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.tax, cutoff=80)```
+2. ```remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)```
+3. ```summary.tax(taxonomy=current, count=current)```
 
 **CLUSTERING**
 1. calaulate pairwise distances between sequences with your cutoff ```dist.seqs```
