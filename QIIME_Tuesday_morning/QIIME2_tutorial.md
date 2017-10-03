@@ -10,7 +10,7 @@ In this tutorial, we will run part of the [QIIME 2](https://docs.qiime2.org/2017
 2. make a new directory for the data (e.g. ```mkdir emp-single-end-sequences```) and ```cd``` into that new directory.
 3. use ```wget``` to download barcodes (```wget https://data.qiime2.org/2017.9/tutorials/moving-pictures/emp-single-end-sequences/barcodes.fastq.gz```)
 4. use ```wget``` to download sequences (```wget https://data.qiime2.org/2017.9/tutorials/moving-pictures/emp-single-end-sequences/sequences.fastq.gz```)
-5. decompress files (```gunzip FILE.fastq.gz```)
+5. ```cd ..``
 
 **Import data into QIIME**
 All data that is used as input to QIIME 2 is in form of QIIME 2 artifacts, which contain information about the type of data and the source of the data. So, the first thing we need to do is import these sequence data files into a QIIME 2 artifact.
