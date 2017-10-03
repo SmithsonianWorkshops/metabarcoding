@@ -123,7 +123,7 @@ The GreenGenes classifier is here: ```/data/genomics/db/metabarcoding/qiime_gg_c
 ```
 qiime feature-classifier classify-sklearn \
   --i-classifier /data/genomics/db/metabarcoding/qiime_gg_classifier/gg-13-8-99-515-806-nb-classifier.qza \
-  --i-reads rep-seqs.qza \
+  --i-reads rep-seqs-dada2.qza \
   --o-classification taxonomy.qza
  ```
 2. tabulate metadata
@@ -135,7 +135,7 @@ qiime metadata tabulate \
 3. create a barplot that displays your classification
 ```
 qiime taxa barplot \
-  --i-table table.qza \
+  --i-table table-dada2.qza \
   --i-taxonomy taxonomy.qza \
   --m-metadata-file sample_metadata.tsv \
   --o-visualization taxa-bar-plots.qzv
@@ -146,7 +146,7 @@ qiime taxa barplot \
 ```
 qiime diversity core-metrics-phylogenetic \
   --i-phylogeny rooted-tree.qza \
-  --i-table table.qza \
+  --i-table table-dada2.qza \
   --p-sampling-depth 1109 \
   --output-dir core-metrics-results
  ```
