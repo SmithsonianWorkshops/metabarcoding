@@ -25,8 +25,8 @@ All data that is used as input to QIIME 2 is in form of QIIME 2 artifacts, which
 #$ -l mres=4G,h_data=4G,h_vmem=4G
 #$ -cwd
 #$ -j y
-#$ -N mothur_test
-#$ -o mothur_test.log
+#$ -N qiime_test
+#$ -o qiime_test.log
 #
 # ----------------Modules------------------------- #
 module load bioinformatics/qiime2/2017.8
