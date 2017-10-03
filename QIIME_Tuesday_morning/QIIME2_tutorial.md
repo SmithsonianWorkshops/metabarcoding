@@ -142,7 +142,7 @@ qiime taxa barplot \
  ```
 
 **Alpha diversity**
-1. Use ```core-metrics-phylogenetic```, which rarefies a FeatureTable to a user-specified depth, and then computes a series of alpha and beta diversity metrics. 
+1. Use ```core-metrics```, which rarefies a FeatureTable to a user-specified depth, and then computes a series of alpha and beta diversity metrics. 
 ```
 qiime diversity core-metrics \
   --i-phylogeny rooted-tree.qza \
