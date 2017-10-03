@@ -7,7 +7,7 @@ In this tutorial, we will run part of the [QIIME 2](https://docs.qiime2.org/2017
 
 *Download data to Hydra*
 1. change directory to your space on Hydra (e.g. ```cd /pool/genomics/USER```)
-2. make a new directory for the data (e.g. ```mkdir emp-single-end-sequences```)
+2. make a new directory for the data (e.g. ```mkdir emp-single-end-sequences```) and ```cd``` into that new directory.
 3. use ```wget``` to download barcodes (```wget https://data.qiime2.org/2017.9/tutorials/moving-pictures/emp-single-end-sequences/barcodes.fastq.gz```)
 4. use ```wget``` to download sequences (```wget https://data.qiime2.org/2017.9/tutorials/moving-pictures/emp-single-end-sequences/sequences.fastq.gz```)
 5. decompress files (```gunzip FILE.fastq.gz```)
