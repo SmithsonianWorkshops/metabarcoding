@@ -129,7 +129,7 @@ Sample full commands for the above steps:
 3. ```phylo.diversity(tree=stability.tre, count=stability.count_table, rarefy=T)```
 
 **BETA DIVERSITY:**
-1. generate a heatmap to look at relative abundance of OTUs across samples ``heatmap.bin```
+1. generate a heatmap to look at relative abundance of OTUs across samples ```heatmap.bin```
 2. calculate similarity of membership and structure of samples ```dist.shared```
 3. generate a heatmap to visualize the above ```heatmap.sim```
 4. generate a venn diagram ```venn```
