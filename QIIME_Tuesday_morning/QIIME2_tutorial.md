@@ -51,7 +51,7 @@ To view .qza and .qzv files, try this: https://view.qiime2.org/
 ```
 qiime demux emp-single \
   --i-seqs emp-single-end-sequences.qza \
-  --m-barcodes-file sample-metadata.tsv \
+  --m-barcodes-file sample_metadata.tsv \
   --m-barcodes-category BarcodeSequence \
   --o-per-sample-sequences demux.qza
  ```
