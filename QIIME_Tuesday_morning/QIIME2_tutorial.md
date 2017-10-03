@@ -78,11 +78,11 @@ The feature-table summarize command will give you information on how many sequen
 
 ```
 qiime feature-table summarize \
-  --i-table table.qza \
+  --i-table table-dada2.qza \
   --o-visualization table.qzv \
   --m-sample-metadata-file sample_metadata.tsv
 qiime feature-table tabulate-seqs \
-  --i-data rep-seqs.qza \
+  --i-data rep-seqs-dada2.qza \
   --o-visualization rep-seqs.qzv
  ```
 
@@ -90,7 +90,7 @@ qiime feature-table tabulate-seqs \
 1. alignment with mafft
  ```
  qiime alignment mafft \
-  --i-sequences rep-seqs.qza \
+  --i-sequences rep-seqs-dada2.qza \
   --o-alignment aligned-rep-seqs.qza
   ```
 
