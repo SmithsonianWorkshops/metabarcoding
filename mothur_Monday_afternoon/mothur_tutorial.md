@@ -13,7 +13,7 @@ Taxonomic databases are here:
 
 ```/data/genomics/db/metabarcoding/silva.bacteria```
 
-```/data/genomics/db/metabarcoding/18S_pr2_version_4.7_merged_Eukaryota.tsv```
+```/data/genomics/db/metabarcoding/18S```
 
 In the span of this workshop, we will analyze two datasets in mothur, a 16S dataset from the mothur MiSeqSOP tutorial and an 18S dataset from Katrina Lohan. Sequence data are here:
 ```/pool/genomics/dikowr/mothur_tutorial/16S_data```
@@ -64,7 +64,7 @@ Here is a list of the commands we will perform and what they do. For further exp
 11. remove sequences that are probably non-specific amplification identified with above step ```filter.seqs``` 
 12. merge duplicates again ```unique.seqs```
 13. merge very similar sequences (_e.g._ allow 1 difference per 100 bp) ```pre.cluster```
-14. search for chimeras ``chimera.vsearch```
+14. search for chimeras ```chimera.vsearch```
 15. remove identified chimeras ```remove.seqs```
 
 Sample full commands for the above steps:
@@ -74,7 +74,7 @@ Sample full commands for the above steps:
 4. ```screen.seqs(fasta=stability.trim.contigs.fasta, group=stability.contigs.groups, maxambig=0, maxlength=275)```
 5. ```unique.seqs(fasta=stability.trim.contigs.good.fasta)``` 
 6. ```count.seqs(name=stability.trim.contigs.good.names, group=stability.contigs.good.groups)``` 
-7. ```pcr.seqs(fasta=silva.bacteria.fasta, start=11894, end=25319, keepdots=F, processors=8)``` 
+7. ```pcr.seqs(fasta=silva.bacteria.fasta, start=11894, end=25319, keepdots=F, processors=8)``` *copy silva.bacteria.fasta to your space from ```/data/genomics/db/metabarcoding/silva.bacteria```*
 8. ```rename.file(input=silva.bacteria.pcr.fasta, new=silva.v4.fasta)```
 9. ```align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.v4.fasta)```
 10. ```summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)``` 
@@ -87,14 +87,16 @@ Sample full commands for the above steps:
 
 
 **TAXONOMIC CLASSIFICATION**
+Run these steps in the same batchfile:
 1. classify sequences (_e.g._ with RDP training set and Bayesian classifier) ```classify.seqs```
 2. remove off-target taxa ```remove.lineage```
 3. created updated taxonomy summary ```summary.tax```
 
 Sample full commands for the above steps:
-1. ```classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.fasta, taxonomy=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.tax, cutoff=80)```
-2. ```remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)```
-3. ```summary.tax(taxonomy=current, count=current)```
+Run these steps in the same batchfile:
+```classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, reference=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.fasta, taxonomy=/data/genomics/db/metabarcoding/RDP_trainset16_022016.rdp/trainset16_022016.rdp.tax, cutoff=80)```
+```remove.lineage(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.taxonomy, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)```
+```summary.tax(taxonomy=current, count=current)```
 
 **CLUSTERING**
 1. calaulate pairwise distances between sequences with your cutoff ```dist.seqs```
@@ -107,14 +109,15 @@ Sample full commands for the above steps:
 8. generate a subsampled file for our analyses ```sub.sample```
 
 Sample full commands for the above steps:
-1. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, cutoff=0.03)``` 
-2. ```cluster(column=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.dist, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table)``` 
-3. ```make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, label=0.03)```
-4. ```classify.otu(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.pick.taxonomy, label=0.03)```
-5. ```clearcut(phylip=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.phylip.dist)```
-6. ```rename.file(count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, tree=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.phylip.tre, shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.shared, constaxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.0.03.cons.taxonomy)```
-7. ```count.groups(shared=stability.opti_mcc.shared)```
-8. ```sub.sample(shared=stability.opti_mcc.shared, size=2392)```
+1. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, cutoff=0.03)```
+2. ```cluster(column=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.dist, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table)```
+3. ```make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, label=0.03)```
+4. ```classify.otu(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.rdp.wang.pick.taxonomy, label=0.03)```
+5. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, output=lt, processors=8)```
+6. ```clearcut(phylip=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.phylip.dist)```
+7. ```rename.file(count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, tree=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.phylip.tre, shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.shared, constaxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.0.03.cons.taxonomy)```
+8. ```count.groups(shared=stability.opti_mcc.shared)
+sub.sample(shared=stability.opti_mcc.shared, size=2392)```
 
 **ALPHA DIVERSITY:**
 1. generate rarefaction curves ```rarefaction.single```
