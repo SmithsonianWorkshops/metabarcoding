@@ -2,7 +2,7 @@
 ## QIIME 2 Tutorial
 
 
-In this tutorial, we will run the [QIIME 2](https://docs.qiime2.org/2017.9/tutorials/moving-pictures/) Moving Pictures tutorial on Hydra. A study based on these samples was originally published in Caporaso et al. (2011). The data used in this tutorial were sequenced on an Illumina HiSeq using the Earth Microbiome Project hypervariable region 4 (V4) 16S rRNA sequencing protocol.
+In this tutorial, we will run part of the [QIIME 2](https://docs.qiime2.org/2017.9/tutorials/moving-pictures/) Moving Pictures tutorial on Hydra. A study based on these samples was originally published in Caporaso et al. (2011). The data used in this tutorial were sequenced on an Illumina HiSeq using the Earth Microbiome Project hypervariable region 4 (V4) 16S rRNA sequencing protocol.
 
 
 *Download data to Hydra*
