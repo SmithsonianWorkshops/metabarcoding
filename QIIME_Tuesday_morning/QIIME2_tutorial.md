@@ -8,6 +8,7 @@ In this tutorial, we will run part of the [QIIME 2](https://docs.qiime2.org/2017
 ```module load bioinformatics/qiime2/2017.8```
 
 ```module load bioinformatics/qiime2/2017.9```
+
 Feel free to try both, but 2017.9 is the most recent version.
 
 *Download data to Hydra*
