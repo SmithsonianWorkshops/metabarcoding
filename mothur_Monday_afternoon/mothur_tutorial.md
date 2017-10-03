@@ -74,7 +74,7 @@ Sample full commands for the above steps:
 4. ```screen.seqs(fasta=stability.trim.contigs.fasta, group=stability.contigs.groups, maxambig=0, maxlength=275)```
 5. ```unique.seqs(fasta=stability.trim.contigs.good.fasta)``` 
 6. ```count.seqs(name=stability.trim.contigs.good.names, group=stability.contigs.good.groups)``` 
-7. ```pcr.seqs(fasta=silva.bacteria.fasta, start=11894, end=25319, keepdots=F, processors=8)``` *copy silva.bacteria.fasta to your space from ```/data/genomics/db/metabarcoding/silva.bacteria```*
+7. ```pcr.seqs(fasta=silva.bacteria.fasta, start=11894, end=25319, keepdots=F, processors=8)``` **copy silva.bacteria.fasta to your space from** ```/data/genomics/db/metabarcoding/silva.bacteria```
 8. ```rename.file(input=silva.bacteria.pcr.fasta, new=silva.v4.fasta)```
 9. ```align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.v4.fasta)```
 10. ```summary.seqs(fasta=stability.trim.contigs.good.unique.align, count=stability.trim.contigs.good.count_table)``` 
