@@ -116,8 +116,7 @@ Sample full commands for the above steps:
 5. ```dist.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, output=lt, processors=8)```
 6. ```clearcut(phylip=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.phylip.dist)```
 7. ```rename.file(count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, tree=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.phylip.tre, shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.shared, constaxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.opti_mcc.0.03.cons.taxonomy)```
-8. ```count.groups(shared=stability.opti_mcc.shared)
-sub.sample(shared=stability.opti_mcc.shared, size=2392)```
+8. ```count.groups(shared=stability.opti_mcc.shared)sub.sample(shared=stability.opti_mcc.shared, size=2392)```
 
 **ALPHA DIVERSITY:**
 1. generate rarefaction curves ```rarefaction.single```
