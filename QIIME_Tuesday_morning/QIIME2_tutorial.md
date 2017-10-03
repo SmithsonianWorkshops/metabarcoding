@@ -80,7 +80,7 @@ The feature-table summarize command will give you information on how many sequen
 qiime feature-table summarize \
   --i-table table.qza \
   --o-visualization table.qzv \
-  --m-sample-metadata-file sample-metadata.tsv
+  --m-sample-metadata-file sample_metadata.tsv
 qiime feature-table tabulate-seqs \
   --i-data rep-seqs.qza \
   --o-visualization rep-seqs.qzv
@@ -137,7 +137,7 @@ qiime metadata tabulate \
 qiime taxa barplot \
   --i-table table.qza \
   --i-taxonomy taxonomy.qza \
-  --m-metadata-file sample-metadata.tsv \
+  --m-metadata-file sample_metadata.tsv \
   --o-visualization taxa-bar-plots.qzv
  ```
 
