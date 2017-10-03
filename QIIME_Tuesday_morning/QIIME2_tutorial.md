@@ -6,8 +6,9 @@ In this tutorial, we will run part of the [QIIME 2](https://docs.qiime2.org/2017
 
 **QIIME 2 is under active development. On Hydra, we have two versions installed and for these there are two modules:**
 ```module load bioinformatics/qiime2/2017.8```
-```module load bioinformatics/qiime2/2017.9```
 
+```module load bioinformatics/qiime2/2017.9```
+Feel free to try both, but 2017.9 is the most recent version.
 
 *Download data to Hydra*
 1. change directory to your space on Hydra (e.g. ```cd /pool/genomics/USER```)
